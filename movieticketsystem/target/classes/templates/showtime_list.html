@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Danh sách suất chiếu</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Danh sách suất chiếu</h1>
+      <a th:href="@{/showtimes/add}" class="book-btn">Thêm suất chiếu mới</a>
+      <table>
+        <tr>
+          <th>Phim</th>
+          <th>Thời gian</th>
+          <th>Số ghế khả dụng</th>
+          <th>Hành động</th>
+        </tr>
+        <tr th:each="showtime : ${showtimes}">
+          <td th:text="${showtime.movie.title}"></td>
+          <td th:text="${showtime.showtime}"></td>
+          <td th:text="${showtime.availableSeats}"></td>
+          <td>
+            <a
+              th:href="@{/showtimes/edit/{id}(id=${showtime.id})}"
+              class="book-btn"
+              >Sửa</a
+            >
+            <form
+              th:action="@{/showtimes/delete/{id}(id=${showtime.id})}"
+              method="post"
+              style="display: inline"
+            >
+              <button type="submit" class="cancel-btn">Xóa</button>
+            </form>
+          </td>
+        </tr>
+      </table>
+      <div th:if="${message}" th:text="${message}" class="message"></div>
+    </div>
+  </body>
+</html>

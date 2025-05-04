@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Chọn phim và suất chiếu</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Thêm nút hoặc link đến trang hủy vé ở vị trí phù hợp trong trang movie_selection.html -->
+      <div class="header-actions" style="margin: 20px 0; text-align: right">
+        <a
+          th:href="@{/tickets/cancel}"
+          class="btn btn-secondary"
+          style="
+            padding: 8px 16px;
+            background-color: #f0f0f0;
+            color: #333;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+          "
+          >Hủy vé đã đặt</a
+        >
+      </div>
+      <h1>Chọn phim và suất chiếu</h1>
+
+      <div class="movie-list">
+        <div th:each="movie : ${movies}" class="movie-card">
+          <h2 th:text="${movie.title}"></h2>
+          <p>Thể loại: <span th:text="${movie.genre}"></span></p>
+          <p>Giá vé: <span th:text="${movie.ticketPrice}"></span> VNĐ</p>
+
+          <div class="showtime-list">
+            <div th:if="${showtimesByMovie[movie.id].size() > 0}">
+              <div
+                th:each="showtime : ${showtimesByMovie[movie.id]}"
+                class="showtime-card"
+              >
+                <p>Rạp: <span th:text="${showtime.theater.name}"></span></p>
+                <p>Thời gian: <span th:text="${showtime.showtime}"></span></p>
+                <p>
+                  Số ghế còn trống:
+                  <span th:text="${showtime.availableSeats}"></span>
+                </p>
+                <a
+                  th:href="@{/tickets/select-seats(showtimeId=${showtime.id})}"
+                  class="btn"
+                  >Chọn ghế</a
+                >
+              </div>
+            </div>
+            <div th:if="${showtimesByMovie[movie.id].size() == 0}">
+              <p>Không có suất chiếu nào!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

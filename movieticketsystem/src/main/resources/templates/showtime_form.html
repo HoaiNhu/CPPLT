@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Quản lý suất chiếu</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <script>
+      function validateForm() {
+        const movieId = document.querySelector('select[name="movieId"]').value;
+        const theaterId = document.querySelector(
+          'select[name="theaterId"]'
+        ).value;
+        const showtime = document.querySelector('input[name="showtime"]').value;
+        const availableSeats = document.querySelector(
+          'input[name="availableSeats"]'
+        ).value;
+
+        if (!movieId) {
+          alert("Vui lòng chọn phim");
+          return false;
+        }
+
+        if (!theaterId) {
+          alert("Vui lòng chọn rạp");
+          return false;
+        }
+
+        if (!showtime) {
+          alert("Vui lòng chọn thời gian chiếu");
+          return false;
+        }
+
+        if (!availableSeats || availableSeats <= 0) {
+          alert("Số ghế khả dụng phải lớn hơn 0");
+          return false;
+        }
+
+        return true;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1 th:if="${showtime.id == null || showtime.id == 0}">
+        Thêm suất chiếu mới
+      </h1>
+      <h1 th:unless="${showtime.id == null || showtime.id == 0}">
+        Sửa suất chiếu
+      </h1>
+
+      <!-- Fix the form action URL based on whether this is an add or edit operation -->
+      <form
+        th:action="${showtime.id == null || showtime.id == 0} ? @{/showtimes/add} : @{/showtimes/edit/{id}(id=${showtime.id})}"
+        th:object="${showtime}"
+        method="post"
+        onsubmit="return validateForm();"
+      >
+        <div>
+          <label>Phim:</label>
+          <select name="movieId" required>
+            <option value="">-- Chọn phim --</option>
+            <option
+              th:each="movie : ${movies}"
+              th:value="${movie.id}"
+              th:text="${movie.title}"
+              th:selected="${showtime.movie != null and showtime.movie.id == movie.id}"
+            ></option>
+          </select>
+        </div>
+        <div>
+          <label>Rạp:</label>
+          <select name="theaterId" required>
+            <option value="">-- Chọn rạp --</option>
+            <option
+              th:each="theater : ${theaters}"
+              th:value="${theater.id}"
+              th:text="${theater.name}"
+              th:selected="${showtime.theater != null and showtime.theater.id == theater.id}"
+            ></option>
+          </select>
+        </div>
+        <div>
+          <label>Thời gian:</label>
+          <input
+            type="datetime-local"
+            th:field="*{showtime}"
+            th:value="${showtime.showtime != null ? #temporals.format(showtime.showtime, 'yyyy-MM-dd''T''HH:mm') : ''}"
+            required
+          />
+        </div>
+        <div>
+          <label>Số ghế khả dụng:</label>
+          <input type="number" th:field="*{availableSeats}" min="1" required />
+        </div>
+
+        <!-- Only include ID field if it's a valid ID (greater than 0) -->
+        <input
+          type="hidden"
+          th:if="${showtime.id != null && showtime.id > 0}"
+          th:field="*{id}"
+        />
+
+        <button type="submit" class="book-btn">Xác nhận</button>
+        <a th:href="@{/showtimes}" class="cancel-btn">Hủy</a>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,235 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+  color: #333;
+}
+
+/* Style cho card phim */
+.movie-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.movie-card h2 {
+  color: #1a73e8;
+  margin-top: 0;
+}
+
+.movie-card p {
+  margin: 10px 0;
+  color: #666;
+}
+
+/* Style cho card suất chiếu */
+.showtimes {
+  margin-top: 20px;
+}
+
+.showtime-card {
+  background-color: #f8f9fa;
+  border-radius: 6px;
+  padding: 15px;
+  margin: 10px 0;
+  border-left: 4px solid #1a73e8;
+}
+
+.showtime-card p {
+  margin: 5px 0;
+}
+
+/* Style cho bảng */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+/* Style cho các nút */
+.add-btn,
+.edit-btn,
+.delete-btn,
+.save-btn,
+.cancel-btn,
+.book-btn,
+.back-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+}
+
+.add-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #2196f3;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.save-btn {
+  background-color: #4caf50;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #f44336;
+  color: white;
+}
+
+.book-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+.back-btn {
+  background-color: #2196f3;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+}
+
+/* Style cho form */
+.form-group {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  margin-top: 20px;
+}
+
+/* Style cho sơ đồ ghế */
+.theater {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.screen {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.row-label {
+  width: 30px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.seat-container {
+  position: relative;
+  margin: 0 5px;
+}
+
+.seat-checkbox {
+  display: none;
+}
+
+.seat {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0 2px;
+}
+
+.seat.available {
+  background-color: #4caf50;
+  color: white;
+}
+
+.seat.booked {
+  background-color: #f44336;
+  color: white;
+  cursor: not-allowed;
+}
+
+.seat-checkbox:checked + .seat {
+  background-color: #2196f3;
+}
+
+/* Style cho thông báo */
+.message {
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 4px;
+}
+
+.message.success {
+  background-color: #dff0d8;
+  color: #3c763d;
+  border: 1px solid #d6e9c6;
+}
+
+.message.error {
+  background-color: #f2dede;
+  color: #a94442;
+  border: 1px solid #ebccd1;
+}

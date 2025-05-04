@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Quản lý rạp chiếu</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Quản lý rạp chiếu</h1>
+
+      <a th:href="@{/theaters/add}" class="add-btn">Thêm rạp mới</a>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Tên rạp</th>
+            <th>Tổng số ghế</th>
+            <th>Thao tác</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="theater : ${theaters}">
+            <td th:text="${theater.id}"></td>
+            <td th:text="${theater.name}"></td>
+            <td th:text="${theater.totalSeats}"></td>
+            <td>
+              <a
+                th:href="@{/theaters/edit/{id}(id=${theater.id})}"
+                class="edit-btn"
+                >Sửa</a
+              >
+              <form
+                th:action="@{/theaters/delete/{id}(id=${theater.id})}"
+                method="post"
+                style="display: inline"
+              >
+                <button
+                  type="submit"
+                  class="delete-btn"
+                  onclick="return confirm('Bạn có chắc chắn muốn xóa rạp này?')"
+                >
+                  Xóa
+                </button>
+              </form>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div th:if="${message}" th:text="${message}" class="message"></div>
+    </div>
+  </body>
+</html>

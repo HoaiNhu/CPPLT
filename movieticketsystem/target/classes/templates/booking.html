@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Đặt vé xem phim</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        text-align: center;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      h1,
+      h2,
+      h3 {
+        color: #333;
+      }
+
+      .movie-info {
+        margin-bottom: 20px;
+        padding: 15px;
+        background-color: #f8f9fa;
+        border-radius: 5px;
+      }
+
+      .form-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="tel"] {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      .btn {
+        padding: 10px 20px;
+        margin: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .submit-btn {
+        background-color: #2e8b57;
+        color: white;
+      }
+
+      .back-btn {
+        background-color: #f0f0f0;
+        color: #333;
+        text-decoration: none;
+      }
+
+      .selected-seats {
+        margin: 20px 0;
+        padding: 10px;
+        background-color: #e9ecef;
+        border-radius: 5px;
+      }
+
+      .seat-tag {
+        display: inline-block;
+        padding: 5px 10px;
+        margin: 5px;
+        background-color: #1e90ff;
+        color: white;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Đặt vé xem phim</h1>
+
+      <div class="movie-info">
+        <h2 th:text="${selectedShowtime.movie.title}"></h2>
+        <p>Thể loại: <span th:text="${selectedShowtime.movie.genre}"></span></p>
+        <p>Rạp: <span th:text="${selectedShowtime.theater.name}"></span></p>
+        <p>Thời gian: <span th:text="${selectedShowtime.showtime}"></span></p>
+        <p>
+          Giá vé:
+          <span th:text="${selectedShowtime.movie.ticketPrice}"></span> VNĐ
+        </p>
+      </div>
+
+      <div class="selected-seats">
+        <h3>Ghế đã chọn:</h3>
+        <div th:each="seat : ${seats}">
+          <span class="seat-tag" th:text="${seat.seatCode}"></span>
+        </div>
+      </div>
+
+      <form th:action="@{/seats/book}" method="post">
+        <input
+          type="hidden"
+          name="showtimeId"
+          th:value="${selectedShowtime.id}"
+        />
+        <div th:each="seat : ${seats}">
+          <input type="hidden" name="seatIds" th:value="${seat.id}" />
+        </div>
+
+        <div class="form-group">
+          <label for="customerName">Họ và tên:</label>
+          <input type="text" id="customerName" name="customerName" required />
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Số điện thoại:</label>
+          <input type="tel" id="phone" name="phone" required />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+
+        <div>
+          <button type="submit" class="btn submit-btn">Xác nhận đặt vé</button>
+          <a
+            th:href="@{/tickets/select-seats(showtimeId=${selectedShowtime.id})}"
+            class="btn back-btn"
+            >Quay lại</a
+          >
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
